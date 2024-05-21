@@ -1,7 +1,6 @@
 import pytest
 from starlette.testclient import TestClient
 
-
 from api.app import get_app  # noqa: E402
 
 
