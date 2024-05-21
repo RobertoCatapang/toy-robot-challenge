@@ -1,0 +1,68 @@
+[tool.poetry]
+name = "toy-bot-challenge"
+version = "1.0.0"
+description = "Toy bot challenge"
+authors = ["Roberto Catapang"]
+license = "Apache License 2.0"
+readme = "README.md"
+
+
+[tool.poetry.dependencies]
+python = "^3.11"
+requests = "^2.31.0"
+uvicorn = "^0.25.0"
+loguru = "^0.7.2"
+pydantic = "^2.5.3"
+fastapi = "^0.109.1"
+
+
+[tool.poetry.group.dev.dependencies]
+isort = "^5.13.2"
+mypy = "^1.8.0"
+black = "^24.3.0"
+flake8 = "^6.1.0"
+bandit = "^1.7.6"
+pytest = "^7.4.3"
+httpx = "^0.26.0"
+pytest-cov = "^4.1.0"
+
+
+[tool.black]
+line-length = 88
+target-version = ['py311']
+include = '\.pyi?$'
+extend-exclude = '''
+/(
+  \.toml
+  |\.sh
+  |\.yaml
+  |\.yml
+  |\.git
+  |\.ini
+  |Dockerfile
+  |Jenkinfile
+)/
+'''
+
+[tool.pytest.ini_options]
+testpaths = ['tests']
+
+[tool.coverage.run]
+source = ['api']
+branch = true
+
+[tool.coverage.report]
+fail_under = 90
+precision = 2
+
+[tool.mypy]
+python_version = "3.11"
+warn_return_any = false
+warn_unused_configs = true
+disallow_untyped_defs = true
+ignore_missing_imports = true
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
