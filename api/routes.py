@@ -31,7 +31,7 @@ def place(payload: RobotPayload) -> RobotPayload:
 def move(payload: RobotPayload) -> RobotPayload:
     """Moves the robot 1 grid unit in the direction it is facing unless that movement will
     cause the robot to fall off the grid."""
-    logger.debug("Moving robot...")
+    logger.info("Moving robot...")
 
     match payload.facing:
         case "EAST":
@@ -57,7 +57,7 @@ def move(payload: RobotPayload) -> RobotPayload:
 @router.post("/left")
 def left(payload: RobotPayload) -> RobotPayload:
     """Rotate the robot 90° anticlockwise/counterclockwise."""
-    logger.debug("Turning left...")
+    logger.info("Turning left...")
 
     match payload.facing:
         case "EAST":
@@ -77,7 +77,7 @@ def left(payload: RobotPayload) -> RobotPayload:
 @router.post("/right")
 def right(payload: RobotPayload) -> RobotPayload:
     """Rotate the robot 90° clockwise."""
-    logger.debug("Turning right...")
+    logger.info("Turning right...")
 
     match payload.facing:
         case "EAST":
