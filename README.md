@@ -71,3 +71,6 @@ or doing a quick test
 ```bash
 pytest tests/
 ```
+
+## Others
+Project journal can be found [here](https://docs.google.com/document/d/1qI073WAOrdPvSx9pLoyFRutkWwRXilDkWCO9rV-cWHA/edit?usp=sharing)
