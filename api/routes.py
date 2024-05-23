@@ -6,6 +6,7 @@ from api.schema import RobotPayload
 router = APIRouter()
 
 
+# Create functions where input and output is RobotPayload
 @router.post("/place", name="place")
 def place(payload: RobotPayload) -> RobotPayload:
     """Places the robot at the x and y are integers that relate to a location on the
@@ -33,6 +34,7 @@ def move(payload: RobotPayload) -> RobotPayload:
     cause the robot to fall off the grid."""
     logger.info("Moving robot...")
 
+    # Add or subtract the coordinate depending on facing orientation
     match payload.facing:
         case "EAST":
             payload.x += 1
@@ -45,6 +47,7 @@ def move(payload: RobotPayload) -> RobotPayload:
         case _:
             raise ValueError("Input not valid")
 
+    # Check if given inputs are valid. Raise error if x/y is out of bounds
     if payload.x > 4 or payload.y > 4:
         raise ValueError("Input moves robot out of bounds")
 
@@ -59,6 +62,7 @@ def left(payload: RobotPayload) -> RobotPayload:
     """Rotate the robot 90° anticlockwise/counterclockwise."""
     logger.info("Turning left...")
 
+    # Change the facing orientation counterclockwise
     match payload.facing:
         case "EAST":
             payload.facing = "NORTH"
@@ -79,6 +83,7 @@ def right(payload: RobotPayload) -> RobotPayload:
     """Rotate the robot 90° clockwise."""
     logger.info("Turning right...")
 
+    # Change the facing orientation clockwise
     match payload.facing:
         case "EAST":
             payload.facing = "SOUTH"
@@ -97,6 +102,7 @@ def right(payload: RobotPayload) -> RobotPayload:
 @router.post("/report")
 def report(payload: RobotPayload) -> RobotPayload:
     """Outputs the robot's current grid location and facing direction."""
+    # Log status of robot
     logger.info(f"Robot is located at {payload.x}, {payload.y} facing {payload.facing}")
 
     return payload
