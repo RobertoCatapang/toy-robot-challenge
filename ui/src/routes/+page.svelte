@@ -69,7 +69,7 @@
     }
 </script>
 
-
+<!-- This is where the style gets defined -->
 <style>
     /* Set the dimension of the grid and cells */
     .grid-container {
@@ -87,6 +87,8 @@
     }
 </style>
 
+
+<!-- This is where the UI gets defined -->
 <div style="display: flex; justify-content: center; align-items: center;">
     <div>
         <h1 style="text-align: center;">Toy Robot Challenge</h1>
