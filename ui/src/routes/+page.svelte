@@ -87,75 +87,81 @@
     }
 </style>
 
-<h1>Toy Robot Challenge</h1>
+<div style="display: flex; justify-content: center; align-items: center;">
+    <div>
+        <h1 style="text-align: center;">Toy Robot Challenge</h1>
 
 <!-- Generate a grid where 0,0 is at the bottom left -->
-<div class="grid-container">
-    {#each [4,3,2,1,0] as row}
-    {#each [0,1,2,3,4] as col}
-        <div class="grid-cell">
-            {#if robotData}
-                <!-- Use response to set position of robot -->
-                {#if col == robotData.x && row == robotData.y}  
-                    <!-- Use SVG component as the robot -->
-                    <SVGTriangle style="position: absolute; top: 0; left: 0;"/>
-                {/if}
-            {/if}
+        <div class="grid-container">
+            {#each [4,3,2,1,0] as row}
+            {#each [0,1,2,3,4] as col}
+                <div class="grid-cell">
+                    {#if robotData}
+                        <!-- Use response to set position of robot -->
+                        {#if col == robotData.x && row == robotData.y}  
+                            <!-- Use SVG component as the robot -->
+                            <SVGTriangle style="position: absolute; top: 0; left: 0;"/>
+                        {/if}
+                    {/if}
+                </div>
+            {/each}
+            {/each}
         </div>
-    {/each}
-    {/each}
+
+        <br>
+
+        <!-- Use dropdown to select allow only valid inputs  -->
+        <!-- Allow only 0 to 4 for x and y coordinates -->
+        <label for="select-id">Choose an x and y coordinate:</label>
+        <select bind:value={x}>
+            {#each [...Array(5).keys()] as number}  <option value="{number}">{number}</option>
+            {/each}
+        </select>
+
+        <select bind:value={y}>
+            {#each [...Array(5).keys()] as number}  <option value="{number}">{number}</option>
+            {/each}
+        </select>
+
+        <br>
+
+        <!-- Allow only EAST, WEST, NORTH and SOUTH for facing options -->
+        <label for="select-id">Choose where the robot will face:</label>
+        <select bind:value={facing}>
+            <option value="EAST">EAST</option>
+            <option value="WEST">WEST</option>
+            <option value="NORTH">NORTH</option>
+            <option value="SOUTH">SOUTH</option>
+        </select>
+
+        <br>
+        <br>
+
+        <!-- Use selected inputs to place robot -->
+        <button on:click={placeRobot}>Place robot</button>
+
+        <!-- Only show all actions when robot is placed -->
+        {#if robotPlaced}
+            <button on:click={() => promptRobot('move')}>Move</button>
+            <button on:click={() => promptRobot('left')}>Left</button>
+            <button on:click={() => promptRobot('right')}>Right</button>
+            <button on:click={() => promptRobot('report')}>Report</button>
+        {/if}
+
+        <!-- When move is successful show success -->
+        {#if moveStatus}
+            <h3 style="color: green;">{moveStatus}</h3>
+        {/if}
+
+
+        <!-- Show x,y and facing direction in report -->
+        {#if reportData}
+            <h3>Robot report</h3>
+                <p>X: {robotData.x}</p>
+                <p>Y: {robotData.y}</p>
+                <p>Facing: {robotData.facing}</p>
+            {:else}
+                <p></p>
+        {/if}
+    </div>
 </div>
-
-<!-- Use dropdown to select allow only valid inputs  -->
-<!-- Allow only 0 to 4 for x and y coordinates -->
-<label for="select-id">Choose an x and y coordinate:</label>
-<select bind:value={x}>
-    {#each [...Array(5).keys()] as number}  <option value="{number}">{number}</option>
-    {/each}
-</select>
-
-<select bind:value={y}>
-    {#each [...Array(5).keys()] as number}  <option value="{number}">{number}</option>
-    {/each}
-</select>
-
-<br>
-
-<!-- Allow only EAST, WEST, NORTH and SOUTH for facing options -->
-<label for="select-id">Choose where the robot will face:</label>
-<select bind:value={facing}>
-    <option value="EAST">EAST</option>
-    <option value="WEST">WEST</option>
-    <option value="NORTH">NORTH</option>
-    <option value="SOUTH">SOUTH</option>
-</select>
-
-<br>
-<br>
-
-<!-- Use selected inputs to place robot -->
-<button on:click={placeRobot}>Place robot</button>
-
-<!-- Only show all actions when robot is placed -->
-{#if robotPlaced}
-    <button on:click={() => promptRobot('move')}>Move</button>
-    <button on:click={() => promptRobot('left')}>Left</button>
-    <button on:click={() => promptRobot('right')}>Right</button>
-    <button on:click={() => promptRobot('report')}>Report</button>
-{/if}
-
-<!-- When move is successful show success -->
-{#if moveStatus}
-    <h3>{moveStatus}</h3>
-{/if}
-
-
-<!-- Show x,y and facing direction in report -->
-{#if reportData}
-    <h3>Robot report</h3>
-        <p>X: {robotData.x}</p>
-        <p>Y: {robotData.y}</p>
-        <p>Facing: {robotData.facing}</p>
-    {:else}
-        <p></p>
-{/if}
