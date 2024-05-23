@@ -1,47 +1,73 @@
 # toy-robot-challenge
 
 
-requirements
+## Introduction
 
-for api
-python 3.11
+A web app that allows the user to move a robot within a grid. It contains two parts, a **Python** backend as the API and a **Svelte** Frontend as the UI.
+
+## Requirements
+Before you start running or developing the program make sure you have the following below installed.
+
+For API:
+```
+python 3.11+
 poetry
+```
 
-for ui
+For UI:
+```
 node
 npm
-svelte
+```
 
+## Installation
+
+Additional libraries are required. Create a virtual environment and use poetry for installing the packages.
+
+### Creating a virtual environment:
+```bash
 create a virtual env
 python3.11 -m venv venv
 . venv/bin/activate
+```
 
+### Installing packages:
 
+For API:
+```bash
 poetry install
+```
 
-uvicorn api.app:app --reload
-
-test:
-	pytest -vv --cov=toy-robot --cov=tests --cov-report=term-missing --cov-report=xml  tests/
-	or
-	pytest tests/
-
-linting
-
-mypy --install-types --non-interactive api/
-mypy api
-black api --line-length 88
-flake8 api
-bandit -r api/
-
-
-npm create svelte@latest ui
+For UI:
+```
 cd ui
 npm install
-npm run dev
+```
 
-Next steps:
-  1: cd ui
-  2: npm install
-  3: git init && git add -A && git commit -m "Initial commit" (optional)
-  4: npm run dev -- --open
+## Usage
+Both the API and UI need to be running to use the web app.
+
+For API:
+```bash
+. venv/bin/activate
+uvicorn api.app:app --reload
+```
+
+For UI, In another terminal run:
+```bash
+cd ui
+npm run dev
+```
+
+## Testing
+Note: Testing is only availble for API.
+
+Testing to produce coverage report:
+```bash
+pytest -vv --cov=toy-robot --cov=tests --cov-report=term-missing --cov-report=xml  tests/
+```
+
+or doing a quick test
+```bash
+pytest tests/
+```
